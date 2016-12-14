@@ -4,7 +4,7 @@
 
 ## Установка
 
-Через composer
+	composer require machaon/utils
 
 ## Как пользоваться
 
