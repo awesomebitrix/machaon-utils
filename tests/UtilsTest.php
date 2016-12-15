@@ -7,22 +7,59 @@
 		public function testConfigIni()
 		{
 			$fileName = __DIR__ . '/files/conf.ini';
-			$this->checkValues($fileName);
+			$this->checkConfigValues($fileName);
 		}
 
 		public function testConfigXml()
 		{
 			$fileName = __DIR__ . '/files/conf.xml';
-			$this->checkValues($fileName);	
+			$this->checkConfigValues($fileName);	
 		}
 
 		public function testConfigPhp()
 		{
 			$fileName = __DIR__ . '/files/conf.php';
-			$this->checkValues($fileName);
+			$this->checkConfigValues($fileName);
 		}
 
-		protected function checkValues($fileName)
+		public function testConfigException()
+		{
+			$this->expectException(Exception::class);
+			$fileName = __DIR__ . '/files/not_existing_file.php';
+			$config = Machaon\config($fileName);
+		}
+
+		public function testConfigTypeof()
+		{
+			$fileName = __DIR__ . '/files/conf.ini';
+			$config = Machaon\config($fileName);
+			$this->assertInstanceOf(\Zend\Config\Config::class, $config);
+		}
+
+		public function testLogger()
+		{
+			$logFile = __DIR__ . '/files/test.log';
+			$logger = Machaon\logger('test', $logFile);
+			$this->assertInstanceOf(\Monolog\Logger::class, $logger);
+ 
+			$handle = fopen($logFile, 'w');
+			fclose($handle);
+
+			$logger->debug('test message', array('foo' => 'bar'));
+			$this->assertStringNotEqualsFile($logFile, '');
+
+			$handle = fopen($logFile, 'w');
+			fclose($handle);
+		}
+
+		public function testLoggerException()
+		{
+			$this->expectException(Exception::class);
+			$logger = Machaon\logger('test');
+		}
+
+
+		protected function checkConfigValues($fileName)
 		{
 			$config = Machaon\config($fileName);
 			$this->assertEquals('correct_val', $config['group2']['field']);
