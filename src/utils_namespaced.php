@@ -107,7 +107,7 @@
 		if (empty($logFileName)) 
 		{
 			if (!defined('LOG_FILENAME')) {
-				throw new Exception('Logfile not specified');
+				throw new \Exception('Logfile not specified');
 			} else {
 				$logFileName = LOG_FILENAME;
 			}
