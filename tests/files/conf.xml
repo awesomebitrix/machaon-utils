@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<group1>
+		<foo>bar</foo>
+		<bar>512</bar>
+	</group1>
+	<group2>
+		<field>correct_val</field>
+	</group2>
+</config>
