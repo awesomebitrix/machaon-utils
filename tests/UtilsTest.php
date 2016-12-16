@@ -1,8 +1,10 @@
 <?php 
-	use PHPUnit\Framework\TestCase;
-	use Machaon\Utils as Machaon;
+	namespace Machaon\Utils\Tests;
 
-	class UtilsTest extends TestCase
+	use \PHPUnit\Framework\TestCase;
+	use \Machaon\Utils as Machaon;
+
+	class FunctionsTest extends TestCase
 	{
 		public function testConfigIni()
 		{
@@ -24,7 +26,7 @@
 
 		public function testConfigException()
 		{
-			$this->expectException(Exception::class);
+			$this->expectException(\Exception::class);
 			$fileName = __DIR__ . '/files/not_existing_file.php';
 			$config = Machaon\config($fileName);
 		}
@@ -54,10 +56,53 @@
 
 		public function testLoggerException()
 		{
-			$this->expectException(Exception::class);
+			$this->expectException(\Exception::class);
 			$logger = Machaon\logger('test');
 		}
 
+		public function testStartsWith()
+		{
+			$this->assertTrue(Machaon\starts_with('foobar', 'foo'));
+			$this->assertTrue(Machaon\starts_with('foobar', 'f'));
+			$this->assertTrue(Machaon\starts_with('foobar', 'foobar'));
+			$this->assertFalse(Machaon\starts_with('foobar', 'foobarbaz'));
+			$this->assertFalse(Machaon\starts_with('', 'foo'));
+			$this->assertFalse(Machaon\starts_with('foo', ''));
+			$this->assertFalse(Machaon\starts_with('foo', null));
+			$this->assertFalse(Machaon\starts_with(null, 'foo'));
+			$this->assertFalse(Machaon\starts_with(null, null));
+			$this->assertFalse(Machaon\starts_with('', ''));
+		}
+
+		public function testEndsWith()
+		{
+			$this->assertTrue(Machaon\ends_with('foobar', 'bar'));
+			$this->assertTrue(Machaon\ends_with('foobar', 'r'));
+			$this->assertTrue(Machaon\ends_with('foobar', 'foobar'));
+			$this->assertFalse(Machaon\ends_with('foobar', 'foobarbaz'));
+			$this->assertFalse(Machaon\ends_with('foobar', 'bazfoobar'));
+			$this->assertFalse(Machaon\ends_with('', 'foo'));
+			$this->assertFalse(Machaon\ends_with('foo', ''));
+			$this->assertFalse(Machaon\ends_with('foo', null));
+			$this->assertFalse(Machaon\ends_with(null, 'foo'));
+			$this->assertFalse(Machaon\ends_with(null, null));
+			$this->assertFalse(Machaon\ends_with('', ''));
+		}
+
+		public function testPlainFunctions()
+		{
+			$functionNames = array('config', 'asset', 'logger', 'starts_with', 'ends_with');
+			
+			foreach ($functionNames as $fn) {
+				$this->assertFalse(function_exists($fn));
+			}
+
+			Machaon\usePlainFunctions();
+
+			foreach ($functionNames as $fn) {
+				$this->assertTrue(function_exists($fn));
+			}
+		}
 
 		protected function checkConfigValues($fileName)
 		{
