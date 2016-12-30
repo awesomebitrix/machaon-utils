@@ -38,3 +38,31 @@
 			return call_user_func_array('Machaon\Utils\ends_with', func_get_args());
 		}
 	}
+
+	if (!function_exists('d'))
+	{
+		function d() {
+			call_user_func_array('Machaon\Utils\d', func_get_args());
+		}
+	}
+
+	if (!function_exists('dd'))
+	{
+		function dd() {
+			call_user_func_array('Machaon\Utils\dd', func_get_args());
+		}
+	}
+
+	if (!function_exists('da'))
+	{
+		function da() {
+			call_user_func_array('Machaon\Utils\da', func_get_args());
+		}
+	}
+
+	if (!function_exists('dda'))
+	{
+		function dda() {
+			call_user_func_array('Machaon\Utils\dda', func_get_args());
+		}
+	}

@@ -143,3 +143,72 @@
 	{
 		return ((string)$needle === substr($haystack, -strlen($needle)));
 	}
+
+	/**
+	 * Функция выводит удобный дамп переданных на вход переменных
+	 * с использованием компонента symfony/var-dumper
+	 * 
+	 * Количество входных параметров не ограничено
+	 * 
+	 * @see http://symfony.com/doc/current/components/var_dumper.html
+	 * 
+	 * @return void
+	 */
+	function d()
+	{
+		foreach (func_get_args() as $var) {
+			\Symfony\Component\VarDumper\VarDumper::dump($var);
+		}
+	}
+
+	/**
+	 * Dump & Die
+	 * @see d()
+	 * @return void
+	 */
+	function dd()
+	{
+		call_user_func_array('Machaon\Utils\d', func_get_args());
+		die();
+	}
+
+	/**
+	 * Dump if Admin
+	 * 
+	 * Функция срабатывает только в том случае, если определен глобальный объект $USER класса CUser,
+	 * и текущий пользователь является администратором.
+	 * 
+	 * Метод зависит от глобального bitrix-объекта $USER
+	 * 
+	 * @see http://dev.1c-bitrix.ru/api_help/main/reference/cuser/isadmin.php
+	 * @see d()
+	 * @return void
+	 */
+	function da()
+	{
+		global $USER;
+		if (is_object($USER) && is_a($USER, 'CUser') && method_exists($USER, 'IsAdmin')) 
+		{
+			if ($USER->IsAdmin()) {
+				call_user_func_array('Machaon\Utils\d', func_get_args());
+			}
+		}
+	}
+
+	/**
+	 * Dump & Die if Admin
+	 * @see da()
+	 * @see dd()
+	 * @return void
+	 */
+	function dda()
+	{
+		global $USER;
+		if (is_object($USER) && is_a($USER, 'CUser') && method_exists($USER, 'IsAdmin')) 
+		{
+			if ($USER->IsAdmin()) {
+				call_user_func_array('Machaon\Utils\d', func_get_args());
+				die();
+			}
+		}
+	}

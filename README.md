@@ -155,3 +155,20 @@
 	if (ends_with('style.css', '.css')) {
 	    echo 'this is css-file';
 	}
+
+### Machaon\Utils\d()
+
+Функция выводит удобный дамп переданных на вход переменных с использованием компонента [http://symfony.com/doc/current/components/var_dumper.html](symfony/var-dumper).
+На вход можно подать неограниченное количество переменных.
+
+### Machaon\Utils\dd()
+
+Dump & Die. Работает аналогично `d()`, но после вызова прекращает выполнение скрипта.
+
+### Machaon\Utils\da()
+
+Dump if Admin. Работает только при подключенном bitrix-прологе, если текущий пользователь является администратором.
+
+### Machaon\Utils\dda()
+
+Dump & Die if Admin. Работает аналогично `da()`, но после вызова прекращает выполнение скрипта.

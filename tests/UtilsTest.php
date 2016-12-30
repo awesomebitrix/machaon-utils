@@ -2,6 +2,7 @@
 	namespace Machaon\Utils\Tests;
 
 	use \PHPUnit\Framework\TestCase;
+	use \Symfony\Component\VarDumper\VarDumper;
 	use \Machaon\Utils as Machaon;
 
 	class FunctionsTest extends TestCase
@@ -91,7 +92,10 @@
 
 		public function testPlainFunctions()
 		{
-			$functionNames = array('config', 'asset', 'logger', 'starts_with', 'ends_with');
+			$functionNames = array(
+				'config', 'asset', 'logger', 'starts_with', 'ends_with',
+				'd', 'dd', 'da', 'dda'
+			);
 			
 			foreach ($functionNames as $fn) {
 				$this->assertFalse(function_exists($fn));
@@ -102,6 +106,13 @@
 			foreach ($functionNames as $fn) {
 				$this->assertTrue(function_exists($fn));
 			}
+		}
+
+		public function testDumps()
+		{
+			// just test functions exists and callable
+			$this->assertNull(Machaon\d());
+			$this->assertNull(Machaon\da());
 		}
 
 		protected function checkConfigValues($fileName)
