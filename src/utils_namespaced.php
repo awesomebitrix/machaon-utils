@@ -1,13 +1,18 @@
 <?php 
 	namespace Machaon\Utils;
 
+	require_once(__DIR__ . '/utils_functions.php');
+
 	/**
 	 * Функция подключает файл с одноименными прокси-функциями без неймспейсов.
+	 * @deprecated С версии 1.1.0 прокси-функции подключаются автоматически.
+	 * Функция оставлена для совместимости.
+	 * 
 	 * @return void
 	 */
 	function usePlainFunctions()
 	{
-		require_once(__DIR__ . '/utils_functions.php');
+		
 	}
 
 	/**

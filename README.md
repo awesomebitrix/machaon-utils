@@ -25,14 +25,9 @@
 	    $asset->addJs(SITE_TEMPLATE_PATH . '/js/something.js');
 	}
 
-Если не хочется работать через неймспейсы, можно подключить файл с прокси-функциями.
-При этом могут быть конфликты, если например в системе уже есть функции с таким названием.
-Если это не пугает, то модифицируем `init.php`:
+Если не хочется работать через неймспейсы, автоматически подключается файл с прокси-функциями, 
+которые обернуты в `function_exists()`.
 
-	# local/php_interface/init.php
-	require_once($_SERVER['DOCUMENT_ROOT'] . '/local/vendor/autoload.php');
-	Machaon\Utils\usePlainFunctions();
-	
 	# any-script.php
 	require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 		
@@ -44,11 +39,6 @@
 	]);
 
 ## Что в коробке
-
-### Machaon\Utils\usePlainFunctions()
-
-Подключает файл с прокси-функциями для вызова без неймспейсов. Вместо `Machaon\Utils\foobar()` можно просто `foobar()`.
-Все прокси-функции обернуты в `function_exists()`.
 
 ### Machaon\Utils\config()
 

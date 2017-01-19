@@ -96,12 +96,6 @@
 				'config', 'asset', 'logger', 'starts_with', 'ends_with',
 				'd', 'dd', 'da', 'dda'
 			);
-			
-			foreach ($functionNames as $fn) {
-				$this->assertFalse(function_exists($fn));
-			}
-
-			Machaon\usePlainFunctions();
 
 			foreach ($functionNames as $fn) {
 				$this->assertTrue(function_exists($fn));
